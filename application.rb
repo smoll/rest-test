@@ -1,6 +1,7 @@
 require "rubygems"
 require "bundler/setup"
 require "sinatra"
+require "json"
 require File.join(File.dirname(__FILE__), "environment")
 
 configure do
@@ -20,4 +21,18 @@ end
 get "/" do
   @profiles = Profile.all
   erb :root
+end
+
+post "/profiles" do
+  content_type :json
+
+  profile = Profile.new
+  profile.name = params[:name]
+
+  return {
+    saved: true,
+    data: profile.attributes
+  }.to_json if profile.save
+
+  { saved: false, errors: profile.errors.to_a }.to_json
 end
