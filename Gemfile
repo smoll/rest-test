@@ -13,6 +13,7 @@ gem 'dm-migrations'
 
 group :development do
   gem 'foreman'
+  gem 'byebug'
 end
 
 group :test do

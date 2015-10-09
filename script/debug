@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Start this in a new terminal window
+
+byebug -R localhost:${REMOTE_BYEBUG_PORT:-5050}

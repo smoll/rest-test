@@ -10,6 +10,16 @@ require 'ostruct'
 
 require 'sinatra' unless defined?(Sinatra)
 
+unless Sinatra::Base.production?
+  # See https://github.com/deivid-rodriguez/byebug/blob/master/GUIDE.md#debugging-remote-programs
+  # or try http://stackoverflow.com/a/13138381
+  require 'byebug'
+  Byebug.wait_connection = false
+  port = ENV['REMOTE_BYEBUG_PORT'] || '5050'
+  puts "Remote debugger on port #{port}. Run 'rake byebug' in a new shell to connect to it!"
+  Byebug.start_server('localhost', port.to_i)
+end
+
 Dotenv.load
 
 configure do

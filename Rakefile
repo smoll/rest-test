@@ -22,3 +22,7 @@ end
 task :console do
   ruby 'script/console'
 end
+
+task :debug do
+  sh 'script/debug'
+end
